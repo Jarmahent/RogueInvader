@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dr2027bybf5vw"]
+
+[ext_resource type="Script" uid="uid://db8tx4574ojwn" path="res://asteroid.gd" id="1_u87q6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_edl1i"]
+radius = 30.0
+
+[node name="Asteroid" type="CharacterBody2D" unique_id=368017565]
+script = ExtResource("1_u87q6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1306903524]
+shape = SubResource("CircleShape2D_edl1i")

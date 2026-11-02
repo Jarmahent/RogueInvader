@@ -1,7 +1,35 @@
 [gd_scene format=3 uid="uid://bq5di02sdkoma"]
 
 [ext_resource type="PackedScene" uid="uid://cbmvscodbnvqm" path="res://ship.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://bs1mpv0g3vmgf" path="res://hud.gd" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://dr2027bybf5vw" path="res://asteroid.tscn" id="3_feb5d"]
 
 [node name="Game" type="Node2D" unique_id=1173610803]
 
 [node name="Ship" parent="." unique_id=1510237601 instance=ExtResource("1_80nbo")]
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=800841294]
+script = ExtResource("2_e2o6t")
+
+[node name="InfoPanel" type="VBoxContainer" parent="HUD" unique_id=79230115]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1129.0
+offset_top = 20.0
+offset_right = -909.0
+offset_bottom = 74.0
+grow_horizontal = 0
+
+[node name="HealthLabel" type="Label" parent="HUD/InfoPanel" unique_id=2000412910]
+layout_mode = 2
+text = "Health"
+
+[node name="HealthBar" type="ProgressBar" parent="HUD/InfoPanel" unique_id=1353470933]
+custom_minimum_size = Vector2(220, 24)
+clip_contents = true
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="Asteroid" parent="." unique_id=368017565 instance=ExtResource("3_feb5d")]

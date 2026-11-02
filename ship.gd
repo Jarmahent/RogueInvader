@@ -9,11 +9,18 @@ extends CharacterBody2D
 @export var bullet_speed: float = 650.0
 @export var fire_interval: float = 0.2
 
+@export var max_health: int = 100
+
+
 @onready var muzzle: Marker2D = $Muzzle
 
+
+var health: int
 var fire_cooldown: float = 0.0
 
 func _ready() -> void:
+	health = max_health
+	
 	# Treat all collision surfaces as walls, with no floor.
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 
