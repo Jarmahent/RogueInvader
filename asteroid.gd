@@ -2,11 +2,19 @@ extends CharacterBody2D
 
 @export var max_health: int = 30
 @export var drift_speed: float = 80.0
+@export var contact_damage: int = 10
+@export var size_multiplier: float = 1.0
+
 
 var health: int
 
 
 func _ready() -> void:
+	var shape := CircleShape2D.new()
+	
+	shape.radius = 30.0 * size_multiplier
+	$CollisionShape2D.shape = shape
+	
 	health = max_health
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 
@@ -17,6 +25,15 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
+	
+	for index in range(get_slide_collision_count()):
+		var collision := get_slide_collision(index)
+		var body := collision.get_collider()
+		
+		if body is Node and body.has_method("take_damage"):
+			if not body.is_in_group("asteroids"):
+				body.take_damage(contact_damage)
+	
 
 	var screen_size := get_viewport_rect().size
 	position.x = wrapf(position.x, 0.0, screen_size.x)
@@ -36,4 +53,19 @@ func _draw() -> void:
 		Vector2(0, -30),
 	])
 
+	for index in range(points.size()):
+		points[index] *= size_multiplier
+
 	draw_polyline(points, Color.WHITE, 2.0, true)
+
+
+func take_damage(amount: int) -> void:
+	health = maxi(health - amount, 0)
+	
+	print("Asteroids health: ", health)
+	
+	if health == 0:
+		queue_free()
+	
+	
+	

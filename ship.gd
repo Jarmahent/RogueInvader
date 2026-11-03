@@ -1,10 +1,12 @@
 extends CharacterBody2D
 
+signal health_changed(current_health: int, maximum_health: int)
+
 
 @export var acceleration: float = 300.0
 @export var max_speed: float = 450.0
 @export var turn_speed: float = 4.0
-
+@export var damage_protection_duration: float = 0.75
 @export var bullet_scene: PackedScene
 @export var bullet_speed: float = 650.0
 @export var fire_interval: float = 0.2
@@ -17,6 +19,7 @@ extends CharacterBody2D
 
 var health: int
 var fire_cooldown: float = 0.0
+var damage_protection_remaining = 0.0
 
 func _ready() -> void:
 	health = max_health
@@ -40,6 +43,12 @@ func _draw() -> void:
 	
 	
 func _physics_process(delta: float) -> void:
+	damage_protection_remaining = maxf(
+		damage_protection_remaining - delta,
+		0.0
+	)
+	
+	
 	var turn_input := Input.get_axis("turn_left", "turn_right")
 	rotation += turn_input * turn_speed * delta
 	
@@ -50,6 +59,14 @@ func _physics_process(delta: float) -> void:
 	velocity = velocity.limit_length(max_speed)
 	
 	move_and_slide()
+	
+	for index in range(get_slide_collision_count()):
+		var collision := get_slide_collision(index)
+		var body := collision.get_collider()
+		
+		if body is Node and body.is_in_group("asteroids"):
+			take_damage(body.contact_damage)
+	
 	var screen_size := get_viewport_rect().size
 	position.x = wrapf(position.x, 0.0, screen_size.x)
 	position.y = wrapf(position.y, 0.0, screen_size.y)
@@ -74,6 +91,13 @@ func shoot() -> void:
 	bullet.velocity = velocity + forward * bullet_speed
 	
 	
+
+func take_damage(amount: int) -> void:
+	if health == 0 or damage_protection_remaining > 0.0:
+		return
+	health = maxi(health - amount, 0)
+	damage_protection_remaining = damage_protection_duration
+	health_changed.emit(health, max_health)
 	
-	
-		
+	if health == 0:
+		queue_free()
