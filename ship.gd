@@ -49,8 +49,11 @@ func _physics_process(delta: float) -> void:
 	)
 	
 	
-	var turn_input := Input.get_axis("turn_left", "turn_right")
-	rotation += turn_input * turn_speed * delta
+	var mouse_direction := get_global_mouse_position() - global_position
+	
+	
+	if mouse_direction.length_squared() > 0.001:
+		global_rotation = mouse_direction.angle() + PI / 2.0
 	
 	if Input.is_action_pressed("thrust"):
 		var forward := Vector2.UP.rotated(rotation)

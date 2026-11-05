@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://bq5di02sdkoma"]
 
 [ext_resource type="PackedScene" uid="uid://cbmvscodbnvqm" path="res://ship.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://mtopd7omcwvi" path="res://game.gd" id="1_feb5d"]
 [ext_resource type="Script" uid="uid://bs1mpv0g3vmgf" path="res://hud.gd" id="2_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://dr2027bybf5vw" path="res://asteroid.tscn" id="3_feb5d"]
-[ext_resource type="PackedScene" uid="uid://du51soth24g04" path="res://bullet.tscn" id="4_fc0e3"]
 
 [node name="Game" type="Node2D" unique_id=1173610803]
+script = ExtResource("1_feb5d")
+asteroid_scene = ExtResource("3_feb5d")
 
 [node name="Ship" parent="." unique_id=1510237601 instance=ExtResource("1_80nbo")]
 collision_mask = 2
@@ -33,9 +35,3 @@ clip_contents = true
 layout_mode = 2
 value = 100.0
 show_percentage = false
-
-[node name="Asteroid" parent="." unique_id=368017565 instance=ExtResource("3_feb5d")]
-collision_layer = 2
-collision_mask = 3
-
-[node name="Bullet" parent="." unique_id=1047782571 instance=ExtResource("4_fc0e3")]

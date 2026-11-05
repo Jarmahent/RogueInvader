@@ -5,6 +5,8 @@ extends CharacterBody2D
 @export var contact_damage: int = 10
 @export var size_multiplier: float = 1.0
 
+@onready var health_bar: ProgressBar = $HealthBar
+
 
 var health: int
 
@@ -16,6 +18,10 @@ func _ready() -> void:
 	$CollisionShape2D.shape = shape
 	
 	health = max_health
+	
+	health_bar.max_value = max_health
+	health_bar.value = health
+	
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 
 	# Pick a random direction, keeping the same drift speed.
@@ -61,6 +67,8 @@ func _draw() -> void:
 
 func take_damage(amount: int) -> void:
 	health = maxi(health - amount, 0)
+	
+	health_bar.value = health
 	
 	print("Asteroids health: ", health)
 	

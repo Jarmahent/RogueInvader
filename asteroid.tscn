@@ -5,8 +5,21 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_edl1i"]
 radius = 30.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edl1i"]
+bg_color = Color(0.6, 0, 0, 1)
+
 [node name="Asteroid" type="CharacterBody2D" unique_id=368017565]
 script = ExtResource("1_u87q6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1306903524]
 shape = SubResource("CircleShape2D_edl1i")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=642515694]
+offset_left = -25.0
+offset_top = 38.0
+offset_right = 29.0
+offset_bottom = 42.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_edl1i")
+max_value = 30.0
+value = 30.0
+show_percentage = false
