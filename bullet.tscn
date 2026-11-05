@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cnhqtlts8ap2" path="res://bullet.gd" id="1_v7oki"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h0m3l"]
-size = Vector2(6, 10)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_edl1i"]
 
 [node name="Bullet" type="Area2D" unique_id=1047782571]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_v7oki")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1518450237]
-shape = SubResource("RectangleShape2D_h0m3l")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1584054684]
+position = Vector2(6, 10)
+shape = SubResource("RectangleShape2D_edl1i")

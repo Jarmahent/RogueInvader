@@ -33,6 +33,7 @@ func spawn_asteroid() -> void:
 	
 	
 	var asteroid = asteroid_scene.instantiate()
+	asteroid.size_multiplier = randf_range(0.5, 2.0)
 	asteroid.position = spawn_position
 	asteroid.collision_layer = 2
 	asteroid.collision_mask = 3
