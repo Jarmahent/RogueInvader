@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, 3.0, Color.WHITE)
+	draw_rect(Rect2(Vector2(-3, -5), Vector2(6, 10)), Color.WHITE)
 
 
 func _physics_process(delta: float) -> void:

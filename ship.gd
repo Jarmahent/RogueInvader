@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 		var body := collision.get_collider()
 		
 		if body is Node and body.is_in_group("asteroids"):
-			take_damage(body.contact_damage)
+			take_damage(body.get_impact_damage(velocity))
 	
 	var screen_size := get_viewport_rect().size
 	position.x = wrapf(position.x, 0.0, screen_size.x)
@@ -88,6 +88,7 @@ func shoot() -> void:
 	
 	get_tree().current_scene.add_child(bullet)
 	bullet.global_position = muzzle.global_position
+	bullet.global_rotation = global_rotation
 	
 	var forward := Vector2.UP.rotated(global_rotation)
 	

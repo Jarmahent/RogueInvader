@@ -1,9 +1,11 @@
 extends CharacterBody2D
 
 @export var max_health: int = 30
-@export var drift_speed: float = 80.0
-@export var contact_damage: int = 10
+@export var min_drift_speed: float = 40.0
+@export var max_drift_speed: float = 300.0
 @export var size_multiplier: float = 1.0
+@export var damage_per_speed: float = 0.1
+@export var minimum_contact_damage: int = 5
 
 @onready var health_bar: ProgressBar = $HealthBar
 
@@ -26,7 +28,8 @@ func _ready() -> void:
 
 	# Pick a random direction, keeping the same drift speed.
 	var angle := randf_range(0.0, TAU)
-	velocity = Vector2.RIGHT.rotated(angle) * drift_speed
+	var speed := randf_range(min_drift_speed, max_drift_speed)
+	velocity = Vector2.RIGHT.rotated(angle) * speed
 
 
 func _physics_process(_delta: float) -> void:
@@ -38,7 +41,7 @@ func _physics_process(_delta: float) -> void:
 		
 		if body is Node and body.has_method("take_damage"):
 			if not body.is_in_group("asteroids"):
-				body.take_damage(contact_damage)
+				body.take_damage(get_impact_damage(body.velocity))
 	
 
 	var screen_size := get_viewport_rect().size
@@ -75,5 +78,12 @@ func take_damage(amount: int) -> void:
 	if health == 0:
 		queue_free()
 	
+	
+func get_impact_damage(other_velocity: Vector2) -> int:
+	var relative_speed := (velocity - other_velocity).length()
+	return maxi(
+		minimum_contact_damage,
+		int(round(relative_speed * damage_per_speed))
+	)
 	
 	
