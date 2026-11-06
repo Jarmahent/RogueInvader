@@ -11,7 +11,7 @@ signal health_changed(current_health: int, maximum_health: int)
 @export var bullet_speed: float = 650.0
 @export var fire_interval: float = 0.2
 
-@export var max_health: int = 100
+@export var max_health: int = 10
 
 
 @onready var muzzle: Marker2D = $Muzzle
