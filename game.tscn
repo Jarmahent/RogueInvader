@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://mtopd7omcwvi" path="res://game.gd" id="1_feb5d"]
 [ext_resource type="Script" uid="uid://bs1mpv0g3vmgf" path="res://hud.gd" id="2_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://dr2027bybf5vw" path="res://asteroid.tscn" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://42xecwcusspy" path="res://pause_menu.tscn" id="4_7jktm"]
 
 [node name="Game" type="Node2D" unique_id=1173610803]
 script = ExtResource("1_feb5d")
@@ -49,3 +50,5 @@ mouse_filter = 2
 [node name="RestartButton" type="Button" parent="HUD/RestartCenter" unique_id=1343866491]
 layout_mode = 2
 text = "RESTART"
+
+[node name="PauseMenu" parent="." unique_id=1588873985 instance=ExtResource("4_7jktm")]

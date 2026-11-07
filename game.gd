@@ -9,7 +9,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	await get_tree().create_timer(spawn_delay).timeout
+	await get_tree().create_timer(spawn_delay, false).timeout
 	while(is_inside_tree()):
 		if not is_instance_valid(get_node_or_null("Ship")):
 			return
@@ -17,7 +17,7 @@ func _ready() -> void:
 		
 		if asteroid_count < max_asteroids:
 			spawn_asteroid()
-		await get_tree().create_timer(spawn_interval).timeout
+		await get_tree().create_timer(spawn_interval, false).timeout
 	
 	
 func spawn_asteroid() -> void:

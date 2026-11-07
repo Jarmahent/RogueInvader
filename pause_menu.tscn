@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://42xecwcusspy"]
+
+[ext_resource type="Script" uid="uid://76pofo6f5rs1" path="res://pause_menu.gd" id="1_hdmo1"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1980709244]
+process_mode = 3
+layer = 10
+script = ExtResource("1_hdmo1")
+
+[node name="MenuOverlay" type="CenterContainer" parent="." unique_id=1910699683]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainButtons" type="VBoxContainer" parent="MenuOverlay" unique_id=654421116]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="MenuOverlay/MainButtons" unique_id=53206250]
+layout_mode = 2
+text = "Resume"
+
+[node name="Options" type="Button" parent="MenuOverlay/MainButtons" unique_id=1181177665]
+layout_mode = 2
+text = "Options"
+
+[node name="ExitToDesktop" type="Button" parent="MenuOverlay/MainButtons" unique_id=1585643448]
+layout_mode = 2
+text = "Exit to Desktop"
+
+[node name="OptionsButtons" type="VBoxContainer" parent="MenuOverlay" unique_id=2093788391]
+visible = false
+layout_mode = 2
+
+[node name="GraphicalOptions" type="Button" parent="MenuOverlay/OptionsButtons" unique_id=777964064]
+layout_mode = 2
+disabled = true
+text = "Graphical Options"
+
+[node name="Audio" type="Button" parent="MenuOverlay/OptionsButtons" unique_id=1269995130]
+layout_mode = 2
+disabled = true
+text = "Audio"
+
+[node name="Back" type="Button" parent="MenuOverlay/OptionsButtons" unique_id=508096457]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="MenuOverlay/MainButtons/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MenuOverlay/MainButtons/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MenuOverlay/MainButtons/ExitToDesktop" to="." method="_on_exit_to_desktop_pressed"]
+[connection signal="pressed" from="MenuOverlay/OptionsButtons/Back" to="." method="_on_back_pressed"]
