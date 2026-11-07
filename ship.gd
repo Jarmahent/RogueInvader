@@ -76,8 +76,12 @@ func _physics_process(delta: float) -> void:
 
 	# A fresh press starts one dash and locks its direction for the burst.
 	if Input.is_action_just_pressed("dash") and dash_time_left <= 0.0:
-		pre_dash_velocity = velocity
 		dash_direction = Vector2.UP.rotated(global_rotation)
+		pre_dash_velocity = velocity
+		
+		if pre_dash_velocity.dot(dash_direction) < 0.0:
+			pre_dash_velocity = Vector2.ZERO
+			
 		dash_time_left = dash_duration
 
 	# Add a boost that fades linearly as the timer runs down. The ordinary

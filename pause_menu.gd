@@ -14,6 +14,10 @@ extends CanvasLayer
 func _ready() -> void:
 	overlay.hide()
 	_show_main_menu()
+	
+	# We dont need to show the exit to desktop button on the web
+	if OS.has_feature("web"):
+		$MenuOverlay/MainButtons/ExitToDesktop.hide()
 
 
 # Handle Escape after the UI has had a chance to use the event.
