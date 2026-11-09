@@ -2,11 +2,24 @@
 extends Node2D
 
 
+signal gold_changed(total: int)
+
 # The Inspector supplies the asteroid scene and sets the timing and cap.
 @export var asteroid_scene: PackedScene
 @export var spawn_delay: float = 1.0
 @export var max_asteroids: int = 5
 @export var spawn_interval: float = 2.0
+
+
+var gold: int = 0
+
+func _on_gold_awarded(amount: int) -> void:
+	var ship := get_node_or_null("Ship")
+	if ship == null or ship.is_queued_for_deletion():
+		return
+	gold += amount
+	gold_changed.emit(gold)
+	print("Gold +%d | Total: %d" % [amount, gold])
 
 
 # Wait before the first spawn, then check at each spawn interval.
@@ -48,5 +61,8 @@ func spawn_asteroid() -> void:
 	asteroid.collision_layer = 2
 	asteroid.collision_mask = 3
 	asteroid.add_to_group("asteroids")
+	
+	
+	asteroid.gold_awarded.connect(_on_gold_awarded)
 	
 	add_child(asteroid)

@@ -8,6 +8,10 @@ radius = 30.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edl1i"]
 bg_color = Color(0.6, 0, 0, 1)
 
+[sub_resource type="Curve" id="Curve_u87q6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.50961536, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Asteroid" type="RigidBody2D" unique_id=1607248028]
 gravity_scale = 0.0
 linear_damp_mode = 1
@@ -26,3 +30,18 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_edl1i")
 max_value = 30.0
 value = 30.0
 show_percentage = false
+
+[node name="Explosion" type="CPUParticles2D" parent="." unique_id=605464618]
+emitting = false
+amount = 42
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_u87q6")
+split_scale = true
+scale_curve_x = null
+scale_curve_y = null

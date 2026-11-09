@@ -6,6 +6,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_edl1i"]
 radius = 12.0
 
+[sub_resource type="Gradient" id="Gradient_c3vuw"]
+colors = PackedColorArray(0.9705518, 0.61292017, 0.27122414, 1, 0.98039216, 0.039215688, 0.22352941, 1)
+
 [node name="Ship" type="CharacterBody2D" unique_id=1510237601]
 script = ExtResource("1_l3rv8")
 bullet_scene = ExtResource("2_4cq66")
@@ -15,3 +18,18 @@ shape = SubResource("CircleShape2D_edl1i")
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=1673616746]
 position = Vector2(0, -24)
+
+[node name="Thruster" type="CPUParticles2D" parent="." unique_id=651247450]
+position = Vector2(0, 16)
+emitting = false
+amount = 32
+lifetime = 0.25
+lifetime_randomness = 0.5
+direction = Vector2(0, 1)
+spread = 12.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 90.0
+initial_velocity_max = 150.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_c3vuw")

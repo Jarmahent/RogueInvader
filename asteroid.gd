@@ -2,7 +2,13 @@
 # initial drift, screen wrapping, health, and contact damage.
 extends RigidBody2D
 
+signal gold_awarded(amount: int)
+
+
+
 # _ready() recalculates max_health from size_multiplier for each asteroid.
+@export_range(0, 100) var gold_drop_chance: int = 100
+@export var gold_reward: int = 3
 @export var max_health: int = 30
 @export var min_drift_speed: float = 40.0
 @export var max_drift_speed: float = 300.0
@@ -11,7 +17,7 @@ extends RigidBody2D
 @export var minimum_contact_damage: int = 5
 
 @onready var health_bar: ProgressBar = $HealthBar
-
+@onready var explosion: CPUParticles2D = $Explosion
 
 var health: int
 
@@ -91,9 +97,19 @@ func _draw() -> void:
 
 	draw_polyline(points, Color.WHITE, 2.0, true)
 
-
+	
+func _play_explosion() -> void:
+	explosion.reparent(get_parent(), true)
+	explosion.scale *= size_multiplier
+	explosion.finished.connect(explosion.queue_free)
+	explosion.emitting = true
+	
+	
 # Update this asteroid's own health bar and remove it at zero health.
 func take_damage(amount: int) -> void:
+	if health <= 0:
+		return
+	
 	health = maxi(health - amount, 0)
 	
 	health_bar.value = health
@@ -101,6 +117,9 @@ func take_damage(amount: int) -> void:
 	print("Asteroids health: ", health)
 	
 	if health == 0:
+		if gold_reward > 0 and randi_range(1, 100) <= gold_drop_chance:
+			gold_awarded.emit(gold_reward)
+		_play_explosion.call_deferred()
 		queue_free()
 	
 	
@@ -112,5 +131,6 @@ func get_impact_damage(other_velocity: Vector2) -> int:
 		minimum_contact_damage,
 		int(round(relative_speed * damage_per_speed))
 	)
+
 	
 	

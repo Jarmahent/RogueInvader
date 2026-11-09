@@ -25,6 +25,7 @@ signal health_changed(current_health: int, maximum_health: int)
 # The Muzzle child marks where bullets appear. @onready resolves it when
 # the ship and its children are ready.
 @onready var muzzle: Marker2D = $Muzzle
+@onready var thruster: CPUParticles2D = $Thruster
 
 # The dash remembers its starting direction and the ship's previous drift.
 var dash_time_left: float = 0.0
@@ -84,13 +85,16 @@ func _physics_process(delta: float) -> void:
 			
 		dash_time_left = dash_duration
 
+	var is_thrusting := dash_time_left <= 0.0 and Input.is_action_pressed("thrust")
+	thruster.emitting = is_thrusting
+
 	# Add a boost that fades linearly as the timer runs down. The ordinary
 	# thrust and speed cap apply only outside the dash.
 	if dash_time_left > 0.0:
 		var boost_fraction := dash_time_left / dash_duration
 		velocity = pre_dash_velocity + dash_direction * dash_boost * boost_fraction
 	else:
-		if Input.is_action_pressed("thrust"):
+		if is_thrusting:
 			var forward := Vector2.UP.rotated(rotation)
 			velocity += forward * acceleration * delta
 
