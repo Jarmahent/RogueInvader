@@ -10,7 +10,7 @@ extends CanvasLayer
 @onready var gold_label: Label = $InfoPanel/GoldLabel
 
 # Connect to future health changes and read the current health immediately
-# so the display is initialized before the first hit.
+# so the display is initialized before the first hit.awaw aawwdwda
 func _ready() -> void:
 	ship.health_changed.connect(_on_health_changed)
 	_on_health_changed(ship.health, ship.max_health)

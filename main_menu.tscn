@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://bgbshk1vxjw7u"]
+
+[ext_resource type="Script" uid="uid://c1l4cmgo6qx55" path="res://main_menu.gd" id="1_06t4h"]
+
+[node name="MainMenu" type="Control" unique_id=318059171]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06t4h")
+
+[node name="MenuCenter" type="CenterContainer" parent="." unique_id=1363982025]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainButtons" type="VBoxContainer" parent="MenuCenter" unique_id=2052418639]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="MenuCenter/MainButtons" unique_id=1714167809]
+layout_mode = 2
+text = "Start"
+
+[node name="OptionsButton" type="Button" parent="MenuCenter/MainButtons" unique_id=128429897]
+layout_mode = 2
+text = "Options"
+
+[node name="ExitButton" type="Button" parent="MenuCenter/MainButtons" unique_id=389293847]
+layout_mode = 2
+text = "Exit"
+
+[node name="OptionsButtons" type="VBoxContainer" parent="MenuCenter" unique_id=1093774527]
+visible = false
+layout_mode = 2
+
+[node name="GraphicsButton" type="Button" parent="MenuCenter/OptionsButtons" unique_id=2011096858]
+layout_mode = 2
+disabled = true
+text = "Graphical Options"
+
+[node name="AudioButton" type="Button" parent="MenuCenter/OptionsButtons" unique_id=1669322748]
+layout_mode = 2
+disabled = true
+text = "Audio"
+
+[node name="BackButton" type="Button" parent="MenuCenter/OptionsButtons" unique_id=454305066]
+layout_mode = 2
+text = "Back"
+
+[node name="VersionLabel" type="Label" parent="." unique_id=1107509517]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -37.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "0.1.0"
+horizontal_alignment = 2
+
+[connection signal="pressed" from="MenuCenter/MainButtons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuCenter/MainButtons/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MenuCenter/MainButtons/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="MenuCenter/OptionsButtons/GraphicsButton" to="." method="_on_graphics_button_pressed"]
+[connection signal="pressed" from="MenuCenter/OptionsButtons/AudioButton" to="." method="_on_audio_button_pressed"]
+[connection signal="pressed" from="MenuCenter/OptionsButtons/BackButton" to="." method="_on_back_button_pressed"]
