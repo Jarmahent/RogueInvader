@@ -1,9 +1,9 @@
 # ROGUE INVADER
-
 **Version 0.14**
 
 ![Rogue Invader ship blasting through asteroids](docs/rogue-invader.png)
 
+### [PLAY](https://rogueinvader.netlify.app)
 ## Quick FAQ
 
 Q: Did you use AI in this project?  
