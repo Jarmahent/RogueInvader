@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cbmvscodbnvqm"]
 
-[ext_resource type="Script" uid="uid://cg4fruum7pm03" path="res://ship.gd" id="1_l3rv8"]
-[ext_resource type="PackedScene" uid="uid://du51soth24g04" path="res://bullet.tscn" id="2_4cq66"]
+[ext_resource type="Script" uid="uid://cg4fruum7pm03" path="res://entities/player/player.gd" id="1_l3rv8"]
+[ext_resource type="PackedScene" uid="uid://du51soth24g04" path="res://entities/projectiles/bullet/bullet.tscn" id="2_4cq66"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edl1i"]
 radius = 12.0

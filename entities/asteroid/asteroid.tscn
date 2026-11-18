@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dr2027bybf5vw"]
 
-[ext_resource type="Script" uid="uid://db8tx4574ojwn" path="res://asteroid.gd" id="1_u87q6"]
+[ext_resource type="Script" uid="uid://db8tx4574ojwn" path="res://entities/asteroid/asteroid.gd" id="1_u87q6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edl1i"]
 radius = 30.0

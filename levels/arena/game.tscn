@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bq5di02sdkoma"]
 
-[ext_resource type="PackedScene" uid="uid://cbmvscodbnvqm" path="res://ship.tscn" id="1_80nbo"]
-[ext_resource type="Script" uid="uid://mtopd7omcwvi" path="res://game.gd" id="1_feb5d"]
-[ext_resource type="Script" uid="uid://bs1mpv0g3vmgf" path="res://hud.gd" id="2_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://dr2027bybf5vw" path="res://asteroid.tscn" id="3_feb5d"]
-[ext_resource type="PackedScene" uid="uid://42xecwcusspy" path="res://pause_menu.tscn" id="4_7jktm"]
-[ext_resource type="PackedScene" uid="uid://d1fv67kii2k3h" path="res://market.tscn" id="6_ryrav"]
+[ext_resource type="PackedScene" uid="uid://cbmvscodbnvqm" path="res://entities/player/player.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://mtopd7omcwvi" path="res://levels/arena/game.gd" id="1_feb5d"]
+[ext_resource type="Script" uid="uid://bs1mpv0g3vmgf" path="res://common/ui/hud/hud.gd" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://dr2027bybf5vw" path="res://entities/asteroid/asteroid.tscn" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://42xecwcusspy" path="res://common/ui/pause_menu/pause_menu.tscn" id="4_7jktm"]
+[ext_resource type="PackedScene" uid="uid://d1fv67kii2k3h" path="res://common/ui/market/market.tscn" id="6_ryrav"]
 
 [node name="Game" type="Node2D" unique_id=1173610803]
 script = ExtResource("1_feb5d")

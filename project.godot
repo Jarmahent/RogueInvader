@@ -11,10 +11,10 @@ config_version=5
 [application]
 
 config/name="RogueInvaderTest"
-run/main_scene="uid://bgbshk1vxjw7u"
+run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="res://common/icons/icon.svg"
 
 [display]
 

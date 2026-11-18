@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d1fv67kii2k3h"]
 
-[ext_resource type="Script" uid="uid://do8yw6trpmi0m" path="res://market.gd" id="1_qy6h4"]
+[ext_resource type="Script" uid="uid://do8yw6trpmi0m" path="res://common/ui/market/market.gd" id="1_qy6h4"]
 
 [node name="Market" type="CanvasLayer" unique_id=1712347134]
 process_mode = 3

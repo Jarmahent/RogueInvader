@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://du51soth24g04"]
 
-[ext_resource type="Script" uid="uid://cnhqtlts8ap2" path="res://bullet.gd" id="1_v7oki"]
+[ext_resource type="Script" uid="uid://cnhqtlts8ap2" path="res://entities/projectiles/bullet/bullet.gd" id="1_v7oki"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edl1i"]
 
