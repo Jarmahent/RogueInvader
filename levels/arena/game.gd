@@ -18,7 +18,7 @@ signal stage_completed(stage_number: int)
 
 var gold: int = 0
 var asteroids_destroyed: int = 0
-var stage_targets: Array[int] = [2, 3, 4]
+var stage_targets: Array[int] = [15, 30, 45, 100, 150]
 var stage_index: int = 0
 var stage_kills: int = 0
 var stage_active: bool = true

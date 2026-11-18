@@ -5,9 +5,16 @@ extends CanvasLayer
 
 # Both button groups are children of the overlay. Showing one group can
 # therefore be done independently of the other.
-@onready var overlay: CenterContainer = $MenuOverlay
-@onready var main_buttons: VBoxContainer = $MenuOverlay/MainButtons
-@onready var options_buttons: VBoxContainer = $MenuOverlay/OptionsButtons
+@onready var overlay: CenterContainer = $CenterContainerOverlay
+@onready var main_buttons: VBoxContainer = (
+	$CenterContainerOverlay/MenuOverlay/MenuOverlay/MainButtons
+)
+@onready var options_buttons: VBoxContainer = (
+	$CenterContainerOverlay/MenuOverlay/MenuOverlay/OptionsButtons
+)
+@onready var stats_label: Label = (
+	$CenterContainerOverlay/MenuOverlay/StatsOverlay/Stats
+)
 
 var market_open: bool = false
 
@@ -20,6 +27,25 @@ func _ready() -> void:
 	if OS.has_feature("web"):
 		$MenuOverlay/MainButtons/ExitToDesktop.hide()
 
+
+func _update_stats() -> void:
+	var ship = get_parent().get_node_or_null("Ship")
+	if ship == null or ship.is_queued_for_deletion():
+		stats_label.text = ""
+		return
+	
+	stats_label.text = (
+		"SHIP STATS\n\n"
+		+ "Health: %d / %d\n"
+		+ "Projectile damage: %d\n"
+		+ "Projectile speed: %.0f px/s"
+	) % [
+		ship.health,
+		ship.max_health,
+		ship.bullet_damage,
+		ship.bullet_speed
+	]
+		
 
 # Handle Escape after the UI has had a chance to use the event.
 func _unhandled_input(event: InputEvent) -> void:
@@ -40,6 +66,9 @@ func _unhandled_input(event: InputEvent) -> void:
 # Pause the whole scene tree and keep the overlay visibility in sync.
 # Reset to the main button group for the next time the menu opens.
 func _set_paused(paused: bool) -> void:
+	if paused:
+		_update_stats()
+		
 	get_tree().paused = paused
 	overlay.visible = paused
 	_show_main_menu()
