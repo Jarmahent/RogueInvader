@@ -9,6 +9,12 @@
 Q: Did you use AI in this project?  
 A: Yes, I have been using ai to assist me in my game development journey and in no way is the AI making up ideas. This all comes from my head.
 
+## Get involved
+
+Want to help me work on this? Check out my [portfolio](https://kevincrafts.dev) and contact me.
+
+Have any suggestions? Open a new [issue](https://github.com/Jarmahent/RogueInvader/issues/new) and I'll see if I can add it into my roadmap.
+
 ## Roadmap
 
 ### What is implemented
