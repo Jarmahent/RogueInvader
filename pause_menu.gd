@@ -9,6 +9,7 @@ extends CanvasLayer
 @onready var main_buttons: VBoxContainer = $MenuOverlay/MainButtons
 @onready var options_buttons: VBoxContainer = $MenuOverlay/OptionsButtons
 
+var market_open: bool = false
 
 # Start with the overlay hidden and the main buttons ready to show.
 func _ready() -> void:
@@ -22,6 +23,9 @@ func _ready() -> void:
 
 # Handle Escape after the UI has had a chance to use the event.
 func _unhandled_input(event: InputEvent) -> void:
+	if market_open:
+		return
+		
 	if event.is_action_pressed("pause"):
 		get_viewport().set_input_as_handled()
 		

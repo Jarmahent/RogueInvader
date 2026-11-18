@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bs1mpv0g3vmgf" path="res://hud.gd" id="2_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://dr2027bybf5vw" path="res://asteroid.tscn" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://42xecwcusspy" path="res://pause_menu.tscn" id="4_7jktm"]
+[ext_resource type="PackedScene" uid="uid://d1fv67kii2k3h" path="res://market.tscn" id="6_ryrav"]
 
 [node name="Game" type="Node2D" unique_id=1173610803]
 script = ExtResource("1_feb5d")
@@ -52,3 +53,5 @@ layout_mode = 2
 text = "RESTART"
 
 [node name="PauseMenu" parent="." unique_id=1588873985 instance=ExtResource("4_7jktm")]
+
+[node name="Market" parent="." unique_id=1712347134 instance=ExtResource("6_ryrav")]

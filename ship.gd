@@ -19,6 +19,7 @@ signal health_changed(current_health: int, maximum_health: int)
 # Dash duration is in seconds. Boost is extra speed at the start of the dash.
 @export var dash_duration: float = 0.15
 @export var dash_boost: float = 1000.0
+@export var bullet_damage: int = 10
 
 
 
@@ -134,6 +135,7 @@ func shoot() -> void:
 		return
 		
 	var bullet = bullet_scene.instantiate()
+	bullet.damage = bullet_damage
 	
 	get_tree().current_scene.add_child(bullet)
 	bullet.global_position = muzzle.global_position
@@ -143,7 +145,11 @@ func shoot() -> void:
 	
 	# The shot inherits the ship's drift as well as its own forward speed.
 	bullet.velocity = velocity + forward * bullet_speed
-	
+
+func upgrade_health(amount: int) -> void:
+	max_health += amount
+	health += amount
+	health_changed.emit(health, max_health)
 	
 
 # Ignore hits while protected or dead. Tell the HUD the new health before

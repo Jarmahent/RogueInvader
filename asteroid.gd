@@ -3,6 +3,7 @@
 extends RigidBody2D
 
 signal gold_awarded(amount: int)
+signal destroyed
 
 
 
@@ -117,6 +118,7 @@ func take_damage(amount: int) -> void:
 	print("Asteroids health: ", health)
 	
 	if health == 0:
+		destroyed.emit()
 		if gold_reward > 0 and randi_range(1, 100) <= gold_drop_chance:
 			gold_awarded.emit(gold_reward)
 		_play_explosion.call_deferred()
