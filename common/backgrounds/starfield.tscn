@@ -12,7 +12,8 @@ repeat_times = 3
 
 [node name="Stars" type="Node2D" parent="FarStars" unique_id=367767739]
 script = ExtResource("1_yddb6")
-star_count = 150
+star_count = 250
+star_color = Color(1, 1, 1, 0.5019608)
 
 [node name="MidStars" type="Parallax2D" parent="." unique_id=489790539]
 scroll_scale = Vector2(0.25, 0.25)
@@ -21,19 +22,21 @@ repeat_times = 3
 
 [node name="Stars" type="Node2D" parent="MidStars" unique_id=1882594183]
 script = ExtResource("1_yddb6")
-star_count = 100
+star_count = 150
 star_seed = 200
 minimum_radius = 0.8
 maximum_radius = 1.5
+star_color = Color(0, 0.9133334, 0.9000948, 0.5019608)
 
 [node name="NearStars" type="Parallax2D" parent="." unique_id=1921067580]
-scroll_scale = Vector2(0.55, 0.55)
+scroll_scale = Vector2(0.35, 0.35)
 repeat_size = Vector2(2048, 2048)
 repeat_times = 3
 
 [node name="Stars" type="Node2D" parent="NearStars" unique_id=1641211248]
 script = ExtResource("1_yddb6")
-star_count = 50
+star_count = 100
 star_seed = 300
 minimum_radius = 1.2
 maximum_radius = 2.0
+star_color = Color(1, 1, 1, 0.5019608)

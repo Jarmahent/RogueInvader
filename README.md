@@ -1,5 +1,5 @@
 # ROGUE INVADER
-**Version 0.14**
+**Version 0.15**
 
 ![Rogue Invader ship blasting through asteroids](docs/rogue-invader.png)
 

@@ -83,6 +83,7 @@ func _draw() -> void:
 	for index in range(points.size()):
 		points[index] *= size_multiplier
 
+	draw_colored_polygon(points, Color.BLACK)
 	draw_polyline(points, Color.WHITE, 2.0, true)
 
 func _physics_process(delta: float) -> void:

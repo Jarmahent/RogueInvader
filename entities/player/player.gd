@@ -55,7 +55,7 @@ func _draw() -> void:
 		Vector2(0, -20),
 	])
 	
-	
+	draw_colored_polygon(points, Color.BLACK)
 	draw_polyline(points, Color.WHITE, 2.0, true)
 	
 	

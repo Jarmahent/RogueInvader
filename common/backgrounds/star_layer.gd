@@ -35,7 +35,7 @@ func _draw() -> void:
 		)
 		
 		var color := star_color
-		color.a * random.randf_range(0.4, 1.0)
+		color.a *= random.randf_range(0.4, 1.0)
 		
 		draw_circle(star_position, radius, color)		
 		
