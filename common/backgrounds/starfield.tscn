@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cls1y13npy4hq"]
+
+[ext_resource type="Script" uid="uid://bj7qljlabcgyi" path="res://common/backgrounds/star_layer.gd" id="1_yddb6"]
+
+[node name="Starfield" type="Node2D" unique_id=2015770375]
+z_index = -10
+
+[node name="FarStars" type="Parallax2D" parent="." unique_id=2145437889]
+scroll_scale = Vector2(0.08, 0.08)
+repeat_size = Vector2(2048, 2048)
+repeat_times = 3
+
+[node name="Stars" type="Node2D" parent="FarStars" unique_id=367767739]
+script = ExtResource("1_yddb6")
+star_count = 150
+
+[node name="MidStars" type="Parallax2D" parent="." unique_id=489790539]
+scroll_scale = Vector2(0.25, 0.25)
+repeat_size = Vector2(2048, 2048)
+repeat_times = 3
+
+[node name="Stars" type="Node2D" parent="MidStars" unique_id=1882594183]
+script = ExtResource("1_yddb6")
+star_count = 100
+star_seed = 200
+minimum_radius = 0.8
+maximum_radius = 1.5
+
+[node name="NearStars" type="Parallax2D" parent="." unique_id=1921067580]
+scroll_scale = Vector2(0.55, 0.55)
+repeat_size = Vector2(2048, 2048)
+repeat_times = 3
+
+[node name="Stars" type="Node2D" parent="NearStars" unique_id=1641211248]
+script = ExtResource("1_yddb6")
+star_count = 50
+star_seed = 300
+minimum_radius = 1.2
+maximum_radius = 2.0
