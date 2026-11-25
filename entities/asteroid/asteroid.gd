@@ -9,19 +9,21 @@ signal destroyed
 
 # _ready() recalculates max_health from size_multiplier for each asteroid.
 @export_range(0, 100) var gold_drop_chance: int = 100
-@export var gold_reward: int = 3
+@export var gold_reward: int = 1
 @export var max_health: int = 30
 @export var min_drift_speed: float = 40.0
 @export var max_drift_speed: float = 300.0
 @export var size_multiplier: float = 2.0
 @export var damage_per_speed: float = 0.1
 @export var minimum_contact_damage: int = 5
+@export var offscreen_despawn_delay: float = 5.0
+
 
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var explosion: CPUParticles2D = $Explosion
 
 var health: int
-
+var time_offscreen: float = 0.0
 
 func _ready() -> void:
 	# Rigid bodies need contact monitoring to emit body_entered.
@@ -57,21 +59,6 @@ func _process(_delta: float) -> void:
 		30.0 * size_multiplier + 8.0
 	)
 
-# Wrap position through the physics state so the rigid body reappears at
-# the opposite edge while keeping its rotation and velocity.
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	var screen_size := get_viewport_rect().size
-	var wrapped_transform := state.transform
-	wrapped_transform.origin.x = wrapf(
-		wrapped_transform.origin.x, 0.0, screen_size.x
-	)
-	
-	wrapped_transform.origin.y = wrapf(
-		wrapped_transform.origin.y, 0.0, screen_size.y
-	)
-	
-	state.transform = wrapped_transform
-
 # Apply contact damage to a character body that can take damage. The ship
 # also checks its slide collisions and uses a brief window to reject repeat hits.
 func _on_body_entered(body: Node) -> void:
@@ -98,7 +85,22 @@ func _draw() -> void:
 
 	draw_polyline(points, Color.WHITE, 2.0, true)
 
+func _physics_process(delta: float) -> void:
+	var screen_to_world := get_canvas_transform().affine_inverse()
+	var visible_rect: Rect2 = screen_to_world * get_viewport_rect()
 	
+	var asteroid_radius := 30.0 * size_multiplier
+	var visibility_bound := visible_rect.grow(asteroid_radius)
+	
+	if visibility_bound.has_point(global_position):
+		time_offscreen = 0.0
+	else:
+		time_offscreen += delta
+		
+		if time_offscreen >= offscreen_despawn_delay:
+			queue_free()
+	
+
 func _play_explosion() -> void:
 	explosion.reparent(get_parent(), true)
 	explosion.scale *= size_multiplier

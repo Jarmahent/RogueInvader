@@ -33,3 +33,7 @@ initial_velocity_max = 150.0
 scale_amount_min = 2.0
 scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_c3vuw")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1685383406]
+limit_smoothed = true
+position_smoothing_enabled = true

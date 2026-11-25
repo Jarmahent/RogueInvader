@@ -18,7 +18,7 @@ signal stage_completed(stage_number: int)
 
 var gold: int = 0
 var asteroids_destroyed: int = 0
-var stage_targets: Array[int] = [15, 30, 45, 100, 150]
+var stage_targets: Array[int] = [5, 30, 45, 100, 150]
 var stage_index: int = 0
 var stage_kills: int = 0
 var stage_active: bool = true
@@ -111,6 +111,11 @@ func _on_upgrade_requested(upgrade_id: String) -> void:
 		]
 	)
 
+func get_camera_world_rect() -> Rect2:
+	var screen_to_world := get_canvas_transform().affine_inverse()
+	return screen_to_world * get_viewport_rect()
+
+
 
 func _on_market_continue_requested() -> void:
 	if stage_index + 1 >= stage_targets.size():
@@ -131,30 +136,55 @@ func _on_market_continue_requested() -> void:
 
 # Choose a point in the opposite screen quadrant based on the ship's position.
 func spawn_asteroid() -> void:
-	var screen_size := get_viewport_rect().size
-	var ship_position: Vector2 = $Ship.position
+	var ship := get_node_or_null("Ship")
+	if ship == null or ship.is_queued_for_deletion():
+		return
 	
-	var spawn_position := Vector2(
-		screen_size.x * 0.75 if ship_position.x < screen_size.x * 0.5
-		else screen_size.x * 0.25,
-		screen_size.y * 0.75 if ship_position.y < screen_size.y * 0.5
-		else screen_size.y * 0.25
+	var size_multiplier := randf_range(0.5, 2.0)
+	var asteroid_radius := 30.0 * size_multiplier
+	
+	var spawn_rect := get_camera_world_rect().grow(
+		-asteroid_radius - 20.0
 	)
 	
+	if spawn_rect.size.x <= 0.0 or spawn_rect.size.y <= 0.0:
+		return
+		
+	var spawn_position := Vector2.ZERO
+	var found_position := false
 	
-	# Set the size before add_child() runs the asteroid's _ready(), which uses
-	# the size to calculate its collision radius and starting health.
+	for attempt in range(20):
+		var candidate := Vector2(
+			randf_range(spawn_rect.position.x, spawn_rect.end.x),
+			randf_range(spawn_rect.position.y, spawn_rect.end.y)
+		)
+		
+		if candidate.distance_to(ship.global_position) >= (
+			180.0 + asteroid_radius
+		):
+			spawn_position = candidate
+			found_position = true
+			break
+		
+	if not found_position:
+		return
+	
 	var asteroid = asteroid_scene.instantiate()
-	asteroid.size_multiplier = randf_range(0.5, 2.0)
-	asteroid.position = spawn_position
-	# Put the asteroid on layer 2 and let it collide with layers 1 and 2.
-	# The group lets the spawner count asteroids and the ship identify them.
+	asteroid.size_multiplier = size_multiplier
+	
+	asteroid.position = to_local(spawn_position)
 	asteroid.collision_layer = 2
 	asteroid.collision_mask = 3
 	asteroid.add_to_group("asteroids")
-	
 	
 	asteroid.gold_awarded.connect(_on_gold_awarded)
 	asteroid.destroyed.connect(_on_asteroid_destroyed)
 	
 	add_child(asteroid)
+	
+	
+	
+	
+	
+	
+	

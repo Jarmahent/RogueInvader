@@ -37,13 +37,14 @@ var fire_cooldown: float = 0.0
 var damage_protection_remaining = 0.0
 
 func _ready() -> void:
+	
 	health = max_health
 	
 	# Treat all collision surfaces as walls, with no floor.
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 
 	# Start in the middle of the game window.
-	position = get_viewport_rect().size / 2.0
+	position = Vector2.ZERO
 
 # Draw the triangle in local coordinates. Negative Y is the ship's nose.
 func _draw() -> void:
@@ -117,10 +118,7 @@ func _physics_process(delta: float) -> void:
 		if dash_time_left == 0.0:
 			velocity = pre_dash_velocity
 
-	# Wrap each axis so the ship reappears on the opposite edge.
-	var screen_size := get_viewport_rect().size
-	position.x = wrapf(position.x, 0.0, screen_size.x)
-	position.y = wrapf(position.y, 0.0, screen_size.y)
+
 	
 	# Holding fire repeats shots at the configured interval.
 	fire_cooldown = maxf(fire_cooldown - delta, 0.0)
