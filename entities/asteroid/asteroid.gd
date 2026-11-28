@@ -2,14 +2,13 @@
 # initial drift, screen wrapping, health, and contact damage.
 extends RigidBody2D
 
-signal gold_awarded(amount: int)
+signal xp_awarded(amount: int)
 signal destroyed
 
 
 
 # _ready() recalculates max_health from size_multiplier for each asteroid.
-@export_range(0, 100) var gold_drop_chance: int = 100
-@export var gold_reward: int = 1
+@export var xp_reward: int = 1
 @export var max_health: int = 30
 @export var min_drift_speed: float = 40.0
 @export var max_drift_speed: float = 300.0
@@ -122,8 +121,7 @@ func take_damage(amount: int) -> void:
 	
 	if health == 0:
 		destroyed.emit()
-		if gold_reward > 0 and randi_range(1, 100) <= gold_drop_chance:
-			gold_awarded.emit(gold_reward)
+		xp_awarded.emit(xp_reward)
 		_play_explosion.call_deferred()
 		queue_free()
 	

@@ -37,6 +37,9 @@ layout_mode = 2
 [node name="SpeedButton" type="Button" parent="MarketCenter/MarketPanel/MarketContent" unique_id=498219973]
 layout_mode = 2
 
+[node name="MaxStaminaButton" type="Button" parent="MarketCenter/MarketPanel/MarketContent" unique_id=2058489177]
+layout_mode = 2
+
 [node name="ContinueButton" type="Button" parent="MarketCenter/MarketPanel/MarketContent" unique_id=1178362244]
 layout_mode = 2
 text = "Next Stage"
@@ -44,3 +47,4 @@ text = "Next Stage"
 [connection signal="pressed" from="MarketCenter/MarketPanel/MarketContent/HealthButton" to="." method="_on_health_button_pressed"]
 [connection signal="pressed" from="MarketCenter/MarketPanel/MarketContent/DamageButton" to="." method="_on_damage_button_pressed"]
 [connection signal="pressed" from="MarketCenter/MarketPanel/MarketContent/SpeedButton" to="." method="_on_speed_button_pressed"]
+[connection signal="pressed" from="MarketCenter/MarketPanel/MarketContent/MaxStaminaButton" to="." method="_on_max_stamina_button_pressed"]

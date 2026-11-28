@@ -3,6 +3,7 @@
 extends CharacterBody2D
 
 signal health_changed(current_health: int, maximum_health: int)
+signal stamina_changed(current_stamina: float, max_stamina: float)
 
 
 # Exported settings can be tuned in the Inspector. Speed is in pixels per
@@ -21,6 +22,11 @@ signal health_changed(current_health: int, maximum_health: int)
 @export var dash_boost: float = 1000.0
 @export var bullet_damage: int = 10
 
+# Stamina
+@export var max_stamina: float = 100.0
+@export var dash_stamina_cost: float = 25.0
+@export var stamina_regen_rate: float = 20.0
+
 
 
 # The Muzzle child marks where bullets appear. @onready resolves it when
@@ -35,10 +41,12 @@ var pre_dash_velocity := Vector2.ZERO
 var health: int
 var fire_cooldown: float = 0.0
 var damage_protection_remaining = 0.0
+var stamina: float
 
 func _ready() -> void:
 	
 	health = max_health
+	stamina = max_stamina
 	
 	# Treat all collision surfaces as walls, with no floor.
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
@@ -61,6 +69,13 @@ func _draw() -> void:
 	
 # delta is the time in seconds for one physics tick.
 func _physics_process(delta: float) -> void:
+	if dash_time_left <= 0.0:
+		stamina = minf(
+			stamina + stamina_regen_rate * delta,
+			max_stamina
+		)
+		stamina_changed.emit(stamina, max_stamina)
+	
 	# Count down temporary damage protection without going below zero.
 	damage_protection_remaining = maxf(
 		damage_protection_remaining - delta,
@@ -78,7 +93,13 @@ func _physics_process(delta: float) -> void:
 		global_rotation = mouse_direction.angle() + PI / 2.0
 
 	# A fresh press starts one dash and locks its direction for the burst.
-	if Input.is_action_just_pressed("dash") and dash_time_left <= 0.0:
+	if (
+		Input.is_action_just_pressed("dash")
+		and dash_time_left <= 0.0
+		and stamina >= dash_stamina_cost
+	):
+		stamina -= dash_stamina_cost
+		stamina_changed.emit(stamina)
 		dash_direction = Vector2.UP.rotated(global_rotation)
 		pre_dash_velocity = velocity
 		
@@ -148,7 +169,12 @@ func upgrade_health(amount: int) -> void:
 	max_health += amount
 	health += amount
 	health_changed.emit(health, max_health)
-	
+
+
+func upgrade_stamina(amount: int) -> void:
+	max_stamina += amount
+	stamina = max_stamina
+	stamina_changed.emit(stamina, max_stamina)
 
 # Ignore hits while protected or dead. Tell the HUD the new health before
 # removing the ship so it can show the restart button at zero health.

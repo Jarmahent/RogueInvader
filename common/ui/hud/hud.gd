@@ -7,7 +7,9 @@ extends CanvasLayer
 @onready var health_bar: ProgressBar = $InfoPanel/HealthBar
 @onready var restart_button: Button = $RestartCenter/RestartButton
 @onready var game = get_parent()
-@onready var gold_label: Label = $InfoPanel/GoldLabel
+@onready var xp_label: Label = $InfoPanel/XPLabel
+@onready var xp_bar: ProgressBar = $InfoPanel/XPBar
+@onready var stamina_bar: ProgressBar = $InfoPanel/StaminaBar
 
 # Connect to future health changes and read the current health immediately
 # so the display is initialized before the first hit.awaw aawwdwda
@@ -16,8 +18,11 @@ func _ready() -> void:
 	_on_health_changed(ship.health, ship.max_health)
 	restart_button.pressed.connect(_on_restart_pressed)
 	
-	game.gold_changed.connect(_on_gold_changed)
-	_on_gold_changed(game.gold)
+	ship.stamina_changed.connect(_on_stamina_changed)
+	stamina_bar.max_value = ship.max_stamina
+	_on_stamina_changed(ship.stamina, ship.max_stamina)
+	game.xp_changed.connect(_on_xp_changed)
+	_on_xp_changed(game.xp, game.xp_to_next_level)
 
 
 # Use the same health values for both the bar and the numeric label.
@@ -39,7 +44,17 @@ func _on_health_changed(
 # Reloading Game creates a fresh ship, HUD, and asteroid spawn loop.
 func _on_restart_pressed() -> void:
 	get_tree().reload_current_scene()
+
+func _on_stamina_changed(stamina: float, max_stamina: float) -> void:
+	stamina_bar.value = stamina
+	stamina_bar.max_value = max_stamina
 	
-	
-func _on_gold_changed(total: int) -> void:
-	gold_label.text = "Gold %d" % [total]
+func _on_xp_changed(current: int, target: int) -> void:
+	xp_bar.max_value = target
+	xp_bar.value = current
+
+	xp_label.text = "Level %d | XP: %d / %d" % [
+		game.player_level,
+		current,
+		target
+	]

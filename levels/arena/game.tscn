@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://d1fv67kii2k3h" path="res://common/ui/market/market.tscn" id="6_ryrav"]
 [ext_resource type="PackedScene" uid="uid://cls1y13npy4hq" path="res://common/backgrounds/starfield.tscn" id="7_0c5bo"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0c5bo"]
+bg_color = Color(0.6624897, 0.61281455, 0, 1)
+
 [node name="Game" type="Node2D" unique_id=1173610803]
 script = ExtResource("1_feb5d")
 asteroid_scene = ExtResource("3_feb5d")
@@ -35,9 +38,28 @@ layout_mode = 2
 value = 100.0
 show_percentage = false
 
-[node name="GoldLabel" type="Label" parent="HUD/InfoPanel" unique_id=1638972496]
+[node name="StaminaLabel" type="Label" parent="HUD/InfoPanel" unique_id=1227279741]
+layout_mode = 2
+text = "Stamina"
+
+[node name="StaminaBar" type="ProgressBar" parent="HUD/InfoPanel" unique_id=1544162411]
+custom_minimum_size = Vector2(220, 7)
+clip_contents = true
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_0c5bo")
+value = 100.0
+show_percentage = false
+
+[node name="XPLabel" type="Label" parent="HUD/InfoPanel" unique_id=1638972496]
 layout_mode = 2
 text = "Gold"
+
+[node name="XPBar" type="ProgressBar" parent="HUD/InfoPanel" unique_id=187292736]
+custom_minimum_size = Vector2(220, 5)
+clip_contents = true
+layout_mode = 2
+max_value = 5.0
+show_percentage = false
 
 [node name="RestartCenter" type="CenterContainer" parent="HUD" unique_id=821530329]
 anchors_preset = 15
