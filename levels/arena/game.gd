@@ -79,6 +79,7 @@ func _open_market() -> void:
 
 	$PauseMenu.market_open = true
 	get_tree().paused = true
+	market.refresh_choices()
 	market.show()
 
 func _on_upgrade_requested(upgrade_id: String) -> void:
